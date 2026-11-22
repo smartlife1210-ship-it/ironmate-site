@@ -1,0 +1,13 @@
+<!DOCTYPE html><meta charset="utf-8"><title>鐵友 素材傳送</title>
+<body style="background:#111;color:#eee;font:16px sans-serif;padding:20px"><p id="s">準備素材中…</p>
+<script>
+(async () => {
+  const files = ["ads/reel1.mp4","ads/reel2.mp4","ads/reel3.mp4","ads/reel4.mp4","ig/ironmate-ig-01.jpg","ig/ironmate-ig-03.jpg","ig/ironmate-ig-04.jpg","ig/ironmate-ig-05.jpg","ig/ironmate-ig-06.jpg"];
+  const out = [];
+  for (const f of files) { const b = await (await fetch("../" + f, { cache: "no-store" })).arrayBuffer(); out.push({ name: f, buf: b }); }
+  if (!window.opener) { document.getElementById("s").textContent = "找不到原本的分頁"; return; }
+  window.opener.postMessage({ ironmateAds: out }, "*", out.map(o => o.buf));
+  document.getElementById("s").textContent = "已傳送，這個視窗可以關掉了。";
+  setTimeout(() => window.close(), 1500);
+})();
+</script>
