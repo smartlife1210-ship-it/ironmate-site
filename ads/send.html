@@ -1,0 +1,11 @@
+<!DOCTYPE html><meta charset="utf-8"><title>send</title><p id="s">loading…</p>
+<script>
+(async () => {
+  const files = ["ironmate-1.4-ad-9x16.mp4", "ironmate-1.4-ad-4x5.mp4"];
+  const out = [];
+  for (const f of files) { const b = await (await fetch(f)).arrayBuffer(); out.push({ name: f, buf: b }); }
+  document.getElementById("s").textContent = "ready " + out.map(o => o.buf.byteLength).join(",");
+  if (window.opener) window.opener.postMessage({ ironmateAds: out }, "https://adsmanager.facebook.com", out.map(o => o.buf));
+  document.getElementById("s").textContent += " sent";
+})();
+</script>
