@@ -2,7 +2,8 @@
 <body style="background:#111;color:#eee;font:16px sans-serif;padding:20px"><p id="s">準備素材中…</p>
 <script>
 (async () => {
-  const files = ["ads/reel1.mp4","ads/reel2.mp4","ads/reel3.mp4","ads/reel4.mp4","ig/ironmate-ig-01.jpg","ig/ironmate-ig-03.jpg","ig/ironmate-ig-04.jpg","ig/ironmate-ig-05.jpg","ig/ironmate-ig-06.jpg"];
+  const q = new URLSearchParams(location.search).get("f");
+  const files = q ? q.split(",") : ["ads/reel1.mp4","ads/reel2.mp4","ads/reel3.mp4","ads/reel4.mp4","ig/ironmate-ig-01.jpg","ig/ironmate-ig-03.jpg","ig/ironmate-ig-04.jpg","ig/ironmate-ig-05.jpg","ig/ironmate-ig-06.jpg"];
   const out = [];
   for (const f of files) { const b = await (await fetch("../" + f, { cache: "no-store" })).arrayBuffer(); out.push({ name: f, buf: b }); }
   if (!window.opener) { document.getElementById("s").textContent = "找不到原本的分頁"; return; }
